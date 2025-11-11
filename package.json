@@ -1,7 +1,7 @@
 {
   "name": "jsuitask",
-  "version": "1.0.0",
-  "description": "1. Walk through the provided materials (official documentation, video) to understand how WDIO works and the main benefits of the tool.\r 2. Create an initial setup of WDIO on the local machine\r 3. Create WDIO config if it does not exist and familiarize\r 4. Create first specs using the existing BDD scenario created in Module 2\r 5. Execute these tests using CLI in different browsers (Chrome, Firefox, Safari) in headless mode\r 6. Execute tests in parallel using 2 instances\r 7. Add the option to run tests 2 times before marking it as failed\r 8. Push the code to remote repository and create Merge Request",
+  "version": "1.0.1",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
