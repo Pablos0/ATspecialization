@@ -1,3 +1,5 @@
+import { assert, expect } from "chai";
+
 describe('shopping cart', () => {
     beforeEach(async () => {
         await browser.url("/");
@@ -10,7 +12,9 @@ describe('shopping cart', () => {
 
         const productAdded = await $('#toast-container');
         await productAdded.waitForDisplayed({ timeout: 7000 });
-        await expect(productAdded).toHaveText("Product added to shopping cart.");
+
+        const cartUpdated = await productAdded.getText();
+        expect(cartUpdated).to.equal("Product added to shopping cart.");
     }) 
 
     it("Filtering tools", async () => {
@@ -20,9 +24,12 @@ describe('shopping cart', () => {
 
         const drill = await $('h5*=Cordless Drill 20V');
         await drill.waitForDisplayed({ timeout: 7000 });
-        await expect(drill).toHaveText('Cordless Drill 20V');
+
+        const cordlessDrill = await drill.getText();
+        cordlessDrill.should.equal('Cordless Drill 20V');
     });
 
+    
     it("Deleting products", async () => {
         await $('h5[data-test="product-name"]').click();
         await $('button[data-test="add-to-cart"]').click();
@@ -35,7 +42,9 @@ describe('shopping cart', () => {
 
         const emptyMsg = await $('p.ng-star-inserted');
         await emptyMsg.waitForDisplayed({ timeout: 7000 });
-        await expect(emptyMsg).toHaveText('The cart is empty. Nothing to display.'); 
+
+        const messageReceived = await emptyMsg.getText();
+        assert.equal(messageReceived, 'The cart is empty. Nothing to display.');
     });
 
     it("Adding favorites", async () => {
@@ -44,6 +53,8 @@ describe('shopping cart', () => {
 
         const favorites = await $('#toast-container');
         await favorites.waitForDisplayed({timeout: 7000 });
-        await expect(favorites).toHaveText("Unauthorized, can not add product to your favorite list.");
-    })
+
+        const favorite = await favorites.getText();
+        expect(favorite).to.equal("Unauthorized, can not add product to your favorite list.");
+    }) 
 })

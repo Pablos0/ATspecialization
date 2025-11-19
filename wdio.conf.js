@@ -1,4 +1,6 @@
-exports.config = {
+import { expect, assert, should } from 'chai';
+
+export const config = {
     //
     // ====================
     // Runner Configuration
@@ -44,16 +46,31 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 2,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'},
-        {browserName: 'firefox'},
-       //  browserName: 'safari' no tested by computer compability
+        browserName: 'chrome',
+        'goog:chromeOptions':{
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--window-size=1920,1080'
+            ]
+        
+    }},
+        {browserName: 'firefox',
+        'moz:firefoxOptions': {
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--window-size=1920,1080'
+            ]
+        }},
+       //  { browserName: 'safari' } no tested by computer compability
     ],
 
     //
@@ -187,8 +204,11 @@ exports.config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+        global.expect = expect;
+        global.assert = assert;
+        global.should = should();
+     },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {string} commandName hook command name

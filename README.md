@@ -22,6 +22,55 @@ The ```spec.js``` files in the next path ```./test/specs```. There is one file f
 
 In <b>.gitignore</b> file is just ```node_modules``` folder. In ```wdio.conf.js``` is the required configuration for each test.
 
+## Configuration 
+
+The specs are saved under the names ```cart.spec.js``` and ```userActions.spec.js```, the configuration the wdio.config file is:
+
+```js
+specs: [
+        './test/specs/**/*.js',
+        './src/test/specs/**/*.js'
+    ],
+```
+The max number of  instance to be use is <b>2</b>
+The capabilities are configured with thre browsers: 
+1. Chrome
+2. Firefox 
+3. Safari (this browser is available just in iOS)
+
+Chrome and Firefox are configured to be run in headless mode:
+
+```js
+capabilities: [{
+        browserName: 'chrome',
+        'goog:chromeOptions':{
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--window-size=1920,1080'
+            ]
+        
+    }},
+        {browserName: 'firefox',
+        'moz:firefoxOptions': {
+            args: [
+                '--headless',
+                '--disable-gpu',
+                '--window-size=1920,1080'
+            ]
+        }},
+       //  { browserName: 'safari' } no tested by computer compability
+    ]
+```
+Chai is implemented as ``` import { expect, assert, should } from 'chai';``` and his functions: 
+```js
+before: function (capabilities, specs) {
+        global.expect = expect;
+        global.assert = assert;
+        global.should = should();
+     }
+```
+
 ## Test Scenario
 ### Shopping cart
 
@@ -46,3 +95,14 @@ In <b>.gitignore</b> file is just ```node_modules``` folder. In ```wdio.conf.js`
 <img src="./src/images/javascript.png" alt= "webdriverIOicon" width= "35px" height = "35px"><br>
 
 <img src="./src/images/webdriverio.png" alt= "webdriverIOicon" width= "35px" height = "35px"><br>
+
+## Notes
+
+### Assert, Should and Expect
+
+The ```Assert``` allows insert an additional message in the last parameter for better understanding of the test. This option is also available with ```Expect```, however this is BDD, unlike assert, which is TDD. 
+Both ```Expect``` and ```Should``` are BDD, the main different between these two are th syntax. ```Should``` function required to be executed. 
+
+### Page Objects
+
+The page objects files are under constructions...  
