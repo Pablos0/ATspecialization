@@ -1,8 +1,11 @@
 import { assert, expect } from "chai";
+import MainPage from "../../po/pages/mainpage.page";
+
+const mainPage = new MainPage();
 
 describe('shopping cart', () => {
     beforeEach(async () => {
-        await browser.url("/");
+        await mainPage.open();
     });
 
     it ("Adding products to cart", async () => {
